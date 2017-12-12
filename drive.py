@@ -49,7 +49,7 @@ set_speed = 9
 controller.set_desired(set_speed)
 
 def preprocess_image(img):
-    new_img = img[50:140,:,:]
+    new_img = img[60:140,:,:]
     new_img = cv2.GaussianBlur(new_img, (3,3), 0)
     new_img = cv2.resize(new_img,(200, 66), interpolation = cv2.INTER_AREA)
     new_img = cv2.cvtColor(new_img, cv2.COLOR_RGB2YUV)
@@ -74,7 +74,7 @@ def telemetry(sid, data):
         transformed_image_array = img[None, :, :, :]
         steering_angle = float(model.predict(transformed_image_array, batch_size=1))
 
-        throttle = controller.update(float(speed))
+        throttle = 0.1 #controller.update(float(speed))
 
         print(steering_angle, throttle)
         send_control(steering_angle, throttle)
